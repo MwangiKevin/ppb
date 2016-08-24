@@ -12,13 +12,15 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url().'public/lib/bootstrap-toggle/css/bootstrap-toggle.min.css';?>" />
 	<!--keen-->
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url().'public/css/keen-dashboards.css';?>" />
+	<!--select2-->
+	<link rel="stylesheet" type="text/css" href="<?php echo base_url().'public/lib/select2/css/select2.min.css';?>" />
 </head>
 <body class="application">
 	<!--navbar-->
 	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-		<div class="container-fluid">
-		  	<div class="navbar-header">
-		    	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<div class="container-fluid"> 
+			<div class="navbar-header"> 
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 					<span class="sr-only">Toggle navigation</span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
@@ -28,7 +30,37 @@
 			      	<span class="glyphicon glyphicon-dashboard"></span>
 			    </a>
 		    	<a class="navbar-brand" href="#">PPB Dashboard</a>
-		  </div>
+			</div> 
+			<nav class="collapse navbar-collapse" id="filter-navbar"> 
+				<!--filter_frm-->
+				<div id="filter_frm" class="nav navbar-nav navbar-form navbar-right">
+				  	<div class="form-group">
+				  		<label for="metric" class="white">Metric</label>
+				    	<select class="form-control metric">
+                            <option value="quantity" selected="selected">Quantity</option>
+                        </select>
+				  	</div>
+				  	<div class="form-group">
+				  		<label for="usp" class="white">Usp</label>
+				    	<select class="usp form-control">
+							<option value="all" selected="selected">All Categories</option>
+						</select>
+				  	</div>
+				  	<div class="form-group">
+				  		<label for="order" class="white">Order</label>
+				    	<select class="order form-control">
+							<option value="desc" selected="selected">Top</option>
+						</select>
+				  	</div>
+				  	<div class="form-group">
+				  		<label for="limit" class="white">Limit</label>
+				    	<select class="limit form-control">
+							<option value="5" selected="selected">5</option>
+						</select>
+				  	</div>
+				  	<button id="filter_btn" class="btn btn-success"> <i class="glyphicon glyphicon-filter" aria-hidden="true"></i> Filter</button>
+				</div>
+			</nav> 
 		</div>
 	</div>
 	<!--container-->
@@ -39,13 +71,13 @@
 			<div class="col-sm-8">
 				<div class="chart-wrapper">
 					<div class="chart-title">
-						<input class="chart_filter" chart="brand" type="checkbox" checked data-toggle="toggle" data-on="Quantity" data-off="Price" data-onstyle="info" data-offstyle="success"> by Brand (Top 5) 
+						Brand Analysis
 					</div>
 					<div class="chart-stage">
 						<div id="brand_chart"></div>
 					</div>
 					<div class="chart-notes">
-						Top 5 Imported Brands
+						<span class="heading"></span> Brands
 					</div>
 				</div>
 			</div>
@@ -53,13 +85,13 @@
 			<div class="col-sm-4">
 				<div class="chart-wrapper">
 					<div class="chart-title">
-						<input class="chart_filter" chart="usp" type="checkbox" checked data-toggle="toggle" data-on="Quantity" data-off="Price" data-onstyle="info" data-offstyle="success"> by USP (Top 5)
+						Dosage Analysis
 					</div>
 					<div class="chart-stage">
-						<div id="usp_chart"></div>
+						<div id="dosage_chart"></div>
 					</div>
 					<div class="chart-notes">
-						Top 5 USP Categories
+						<span class="heading"></span> Dosages
 					</div>
 				</div>
 			</div>
@@ -70,13 +102,13 @@
 			<div class="col-sm-4">
 				<div class="chart-wrapper">
 					<div class="chart-title">
-						<input class="chart_filter" chart="manufacturer" type="checkbox" checked data-toggle="toggle" data-on="Quantity" data-off="Price" data-onstyle="info" data-offstyle="success"> by Manufacturer (Top 5)
+						Manufacturer Analysis
 					</div>
 					<div class="chart-stage">
 						<div id="manufacturer_chart"></div>
 					</div>
 					<div class="chart-notes">
-						Top 5 Manufacturers
+						<span class="heading"></span> Manufacturers
 					</div>
 				</div>
 			</div>
@@ -84,13 +116,13 @@
 			<div class="col-sm-4">
 				<div class="chart-wrapper">
 					<div class="chart-title">
-						<input class="chart_filter" chart="importer" type="checkbox" checked data-toggle="toggle" data-on="Quantity" data-off="Price" data-onstyle="info" data-offstyle="success"> by Importer (Top 5)
+						Importer Analysis
 					</div>
 					<div class="chart-stage">
 						<div id="importer_chart"></div>
 					</div>
 					<div class="chart-notes">
-						Top 5 Importers
+						<span class="heading"></span> Importers
 					</div>
 				</div>
 			</div>
@@ -98,13 +130,13 @@
 			<div class="col-sm-4">
 				<div class="chart-wrapper">
 					<div class="chart-title">
-						<input class="chart_filter" chart="country" type="checkbox" checked data-toggle="toggle" data-on="Quantity" data-off="Price" data-onstyle="info" data-offstyle="success"> by Country (Top 5)
+						Country Analysis
 					</div>
 					<div class="chart-stage">
 						<div id="country_chart"></div>
 					</div>
 					<div class="chart-notes">
-						Top 5 Countries
+						<span class="heading"></span> Countries
 					</div>
 				</div>
 			</div>
@@ -124,6 +156,8 @@
 	<script type="text/javascript" src="<?php echo base_url().'public/lib/bootstrap-toggle/js/bootstrap-toggle.min.js';?>"></script>
 	<!--spin-->
 	<script type="text/javascript" src="<?php echo base_url().'public/js/spin.min.js';?>"></script>
+	<!--select2-->
+	<script type="text/javascript" src="<?php echo base_url().'public/lib/select2/js/select2.full.min.js';?>"></script>
 	<!--dashboard-->
 	<script type="text/javascript" src="<?php echo base_url().'public/js/dashboard.js';?>"></script>
 </body>

@@ -32,7 +32,7 @@
         yAxis: {
             min: 0,
             title: {
-                text: '<?php echo $chart_yaxis_title; ?>'
+                text: '<?php echo $chart_metric_title; ?>'
             }
         },
         tooltip: {

@@ -1,24 +1,48 @@
 var chartURL = 'dashboard/load_chart'
+var defaultMetric = 'quantity'
+var defaultUsp = 'all'
+var defaultOrder = 'desc'
+var defaultLimit = '5'
+var chartList = ['brand','dosage','manufacturer','importer','country']
 
 $(function() {
+    /*Load Chart Heading*/
+    LoadHeading('.heading', defaultOrder, defaultLimit)
+    /*Load USP Categories*/
+    LoadCategories('.usp', 'dashboard/get_categories')
+    /*Load Filters*/
+    LoadSelectBox('.metric', JSON.stringify([{ id: 'price', text: 'Price' }]), 'classic')
+    LoadSelectBox('.order', JSON.stringify([{ id: 'asc', text: 'Bottom' }]), 'classic')
+    LoadSelectBox('.limit', JSON.stringify([{ id: '10', text: '10' }]), 'classic')
     /*Load Charts*/
-    LoadChart('#usp_chart', chartURL, 'usp', 'quantity')
-    LoadChart('#brand_chart', chartURL, 'brand', 'quantity')
-    LoadChart('#manufacturer_chart', chartURL, 'manufacturer', 'quantity')
-    LoadChart('#importer_chart', chartURL, 'importer', 'quantity')
-    LoadChart('#country_chart', chartURL, 'country', 'quantity')
-
+    $.each(chartList, function(key, chartName) {
+        chartID = '#'+chartName+'_chart'
+        LoadChart(chartID, chartURL, chartName, defaultMetric, defaultUsp, defaultOrder, defaultLimit)
+    });
     /*ChartFilter Change Event*/
-    $(".chart_filter").on("change", ChartFilterHandler);
-
+    $("#filter_btn").on("click", ChartFilterHandler);
 });
 
-function LoadChart(divID, chartURL, chartName, chartYaxis){
+function LoadCategories(divClass, categoriesURL){
+    //Fetch Categories
+    $.get(categoriesURL, function(data) {
+        //Append Categories to Select2
+        LoadSelectBox(divClass, data, 'classic')
+    });
+}
+
+function LoadSelectBox(divClass, data, theme){
+    $(divClass).select2({
+        theme: theme,
+        data: jQuery.parseJSON(data)
+    })
+}
+    
+function LoadChart(divID, chartURL, chartName, metric, usp, order, limit){
     /*Load Spinner*/
     LoadSpinner(divID)
     /*Load Chart*/
-    chartURL = chartURL+'/'+chartName+'/'+chartYaxis
-    $(divID).load(chartURL)
+    $(divID).load(chartURL, {'name':chartName, 'metric': metric, 'usp':usp, 'order':order, 'limit':limit})
 }
 
 function LoadSpinner(divID){
@@ -29,16 +53,25 @@ function LoadSpinner(divID){
 }
 
 function ChartFilterHandler(){
-    var chart = $(this).attr("chart")
-    var filter = 'quantity'
+    var metric = $('.metric').val()
+    var usp = $('.usp').val()
+    var order = $('.order').val()
+    var limit = $('.limit').val()
 
-    if($(this).prop("checked") == true){
-        filter = 'quantity'
-    }else{
-        filter = 'price'
-    }
+    //Load Chart Heading
+    LoadHeading('.heading', order, limit)
 
-    divID = "#"+chart+"_chart" 
-    LoadChart(divID, chartURL, chart, filter)
+    //Load Charts
+    $.each(chartList, function(key, chartName) {
+        chartID = '#'+chartName+'_chart'
+        LoadChart(chartID, chartURL, chartName, metric, usp, order, limit)
+    });
 }
 
+function LoadHeading(spanClass, order, limit){
+    var titles = new Array();
+    titles['desc'] = 'Top'
+    titles['asc'] = 'Bottom'
+    message = titles[order]+' '+limit
+    $(spanClass).text(message)
+}
