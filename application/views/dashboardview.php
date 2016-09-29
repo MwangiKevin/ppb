@@ -63,88 +63,146 @@
 			</nav> 
 		</div>
 	</div>
-	<!--container-->
-	<div class="container-fluid">
-		<!--toprow-->
-		<div class="row">
-			<!--brand_chart-->
-			<div class="col-sm-8">
-				<div class="chart-wrapper">
-					<div class="chart-title">
-						Brand Analysis
+	<!--Tab headings-->
+	<ul class="nav nav-tabs" role="tablist">
+		<li role="presentation" class="active"><a href="#products" aria-controls="home" role="tab" data-toggle="tab">Products</a></li>
+		<li role="presentation"><a href="#premises" aria-controls="profile" role="tab" data-toggle="tab">Premises</a></li>
+	</ul>
+	 <!-- Tab panes -->
+	<div class="tab-content">
+		<div role="tabpanel" class="tab-pane active" id="products">
+			<div class="container-fluid">
+				<!--toprow-->
+				<div class="row">
+					<!--atc_code_chart-->
+					<div class="col-sm-4">
+						<div class="chart-wrapper">
+							<div class="chart-title">
+								ATC Code(USP)
+							</div>
+							<div class="chart-stage">
+								<div id="atc_code_chart"></div>
+							</div>
+							<div class="chart-notes">
+								<span class="heading"></span> Brands
+							</div>
+						</div>
 					</div>
-					<div class="chart-stage">
-						<div id="brand_chart"></div>
+					<!--route_chart-->
+					<div class="col-sm-4">
+						<div class="chart-wrapper">
+							<div class="chart-title">
+								Route of Admin
+							</div>
+							<div class="chart-stage">
+								<div id="route_chart"></div>
+							</div>
+							<div class="chart-notes">
+								<span class="heading"></span> Dosages
+							</div>
+						</div>
 					</div>
-					<div class="chart-notes">
-						<span class="heading"></span> Brands
+					<!--dosage_chart-->
+					<div class="col-sm-4">
+						<div class="chart-wrapper">
+							<div class="chart-title">
+								Dosage Form
+							</div>
+							<div class="chart-stage">
+								<div id="dosage_form_chart"></div>
+							</div>
+							<div class="chart-notes">
+								<span class="heading"></span> Dosages
+							</div>
+						</div>
 					</div>
 				</div>
-			</div>
-			<!--usp_chart-->
-			<div class="col-sm-4">
-				<div class="chart-wrapper">
-					<div class="chart-title">
-						Dosage Analysis
+				<!--bottomrow-->
+				<div class="row">
+					<!--country_chart-->
+					<div class="col-sm-4">
+						<div class="chart-wrapper">
+							<div class="chart-title">
+								Country of Origin
+							</div>
+							<div class="chart-stage">
+								<div id="country_chart"></div>
+							</div>
+							<div class="chart-notes">
+								<span class="heading"></span> Manufacturers
+							</div>
+						</div>
 					</div>
-					<div class="chart-stage">
-						<div id="dosage_chart"></div>
+					<!--manufacturer_chart-->
+					<div class="col-sm-4">
+						<div class="chart-wrapper">
+							<div class="chart-title">
+								Manufacturer
+							</div>
+							<div class="chart-stage">
+								<div id="manufacturer_chart"></div>
+							</div>
+							<div class="chart-notes">
+								<span class="heading"></span> Importers
+							</div>
+						</div>
 					</div>
-					<div class="chart-notes">
-						<span class="heading"></span> Dosages
+					<!--importer_chart-->
+					<div class="col-sm-4">
+						<div class="chart-wrapper">
+							<div class="chart-title">
+								Importer
+							</div>
+							<div class="chart-stage">
+								<div id="importer_chart"></div>
+							</div>
+							<div class="chart-notes">
+								<span class="heading"></span> Countries
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<!--bottomrow-->
-		<div class="row">
-			<!--manufacturer_chart-->
-			<div class="col-sm-4">
-				<div class="chart-wrapper">
-					<div class="chart-title">
-						Manufacturer Analysis
+		<div role="tabpanel" class="tab-pane" id="premises">
+			<div class="container-fluid">
+				<!--toprow-->
+				<div class="row">
+					<!--county_chart-->
+					<div class="col-sm-6">
+						<div class="chart-wrapper">
+							<div class="chart-title">
+								County
+							</div>
+							<div class="chart-stage">
+								<div id="county_chart"></div>
+							</div>
+							<div class="chart-notes">
+								<span class="heading"></span> Brands
+							</div>
+						</div>
 					</div>
-					<div class="chart-stage">
-						<div id="manufacturer_chart"></div>
-					</div>
-					<div class="chart-notes">
-						<span class="heading"></span> Manufacturers
-					</div>
-				</div>
-			</div>
-			<!--importer_chart-->
-			<div class="col-sm-4">
-				<div class="chart-wrapper">
-					<div class="chart-title">
-						Importer Analysis
-					</div>
-					<div class="chart-stage">
-						<div id="importer_chart"></div>
-					</div>
-					<div class="chart-notes">
-						<span class="heading"></span> Importers
-					</div>
-				</div>
-			</div>
-			<!--country_chart-->
-			<div class="col-sm-4">
-				<div class="chart-wrapper">
-					<div class="chart-title">
-						Country Analysis
-					</div>
-					<div class="chart-stage">
-						<div id="country_chart"></div>
-					</div>
-					<div class="chart-notes">
-						<span class="heading"></span> Countries
+					<!--cadre_chart-->
+					<div class="col-sm-6">
+						<div class="chart-wrapper">
+							<div class="chart-title">
+								Cadre
+							</div>
+							<div class="chart-stage">
+								<div id="cadre_chart"></div>
+							</div>
+							<div class="chart-notes">
+								<span class="heading"></span> Dosages
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<!--footer-->
-		<hr>
-		<p class="small text-muted">Built by <a href="http://www.clintonhealthaccess.org" target="_blank">CHAI</a></p>
 	</div>
+	<!--footer-->
+	<hr>
+	<p class="small text-muted">Built by <a href="http://www.clintonhealthaccess.org" target="_blank">CHAI</a></p>
 	<!--jquery-->
 	<script type="text/javascript" src="<?php echo base_url().'public/lib/jquery/dist/jquery.min.js';?>"></script>
 	<!--highcharts-->

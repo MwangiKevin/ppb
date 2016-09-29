@@ -3,21 +3,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Dashboard_model extends CI_Model {
 
-	public function get_view_data($view_name, $chart_name, $metric, $usp_category, $order, $limit)
+	public function get_view_data($view_name, $chart_name, $metric, $filter_array, $order, $limit)
 	{	
-		//Filter based on usp category
-		$usp_filter = "";
-		if ($usp_category != 'all'){
-			$usp_filter = "WHERE category = '".$usp_category."'";
-		}
 		//Build custom view query
-		$sql = "SELECT $chart_name,SUM($metric) $metric 
-				from $view_name
-				$usp_filter
-				GROUP BY $chart_name
-				ORDER BY $metric $order
-				LIMIT $limit";
-        $query = $this->db->query($sql);
+		$query = $this->db->select("$chart_name,SUM($metric) $metric", FALSE)
+							->where($filter_array)
+							->group_by($chart_name)
+							->order_by($metric, $order)
+							->limit($limit)
+							->get($view_name);
+
         return $query->result_array();
 	}
 

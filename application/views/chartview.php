@@ -58,7 +58,10 @@
                 }
             }
         },
-        series: <?php echo $chart_data; ?>
+        series: <?php echo $chart_data; ?>,
+        exporting: { 
+            enabled: false 
+        }
     });
 });
 </script>

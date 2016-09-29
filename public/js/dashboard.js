@@ -3,13 +3,13 @@ var defaultMetric = 'quantity'
 var defaultUsp = 'all'
 var defaultOrder = 'desc'
 var defaultLimit = '5'
-var chartList = ['brand','dosage','manufacturer','importer','country']
+var chartList = ['atc_code', 'route', 'dosage_form', 'country', 'manufacturer', 'importer', 'county', 'cadre']
 
 $(function() {
     /*Load Chart Heading*/
     LoadHeading('.heading', defaultOrder, defaultLimit)
     /*Load USP Categories*/
-    LoadCategories('.usp', 'dashboard/get_categories')
+    //LoadCategories('.usp', 'dashboard/get_categories')
     /*Load Filters*/
     LoadSelectBox('.metric', JSON.stringify([{ id: 'price', text: 'Price' }]), 'classic')
     LoadSelectBox('.order', JSON.stringify([{ id: 'asc', text: 'Bottom' }]), 'classic')

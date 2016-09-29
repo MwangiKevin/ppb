@@ -14,7 +14,7 @@ class Dashboard extends CI_Controller {
 		$titles = array('desc'=>'Top','asc'=>'Bottom');
 		$chart_name = $this->input->post('name');
 		$metric = $this->input->post('metric');
-		$usp = $this->input->post('usp');
+		/*$usp = $this->input->post('usp');*/
 		$order = $this->input->post('order');
 		$limit = $this->input->post('limit');
 
@@ -25,8 +25,8 @@ class Dashboard extends CI_Controller {
 		$view_name = $this->config->item($chart_name.'_view_name');
 		$color_point = $this->config->item($chart_name.'_color_point');
 
-		#Get view data
-		$view_data = $this->dashboard_model->get_view_data($view_name, $chart_name, $metric_title, $usp, $order, $limit);
+		#Get view data                                                                             /*Replace with filter_array*/
+		$view_data = $this->dashboard_model->get_view_data($view_name, $chart_name, $metric_title, array(), $order, $limit);
 		$chart_columns = array();
 		$chart_data = array();
 		foreach ($view_data as $row) {
@@ -45,7 +45,7 @@ class Dashboard extends CI_Controller {
 		#Build chart
 		$data['chart_name'] = $chart_name;
 		$data['chart_type'] = $chart_type;
-		$data['chart_title'] = ucwords($chart_name).' '.$titles[$order].' '.$limit.' Summary';
+		$data['chart_title'] = ucwords(str_replace('_', ' ', $chart_name)).' '.$titles[$order].' '.$limit.' Summary';
 		$data['chart_metric_title'] = ucwords($metric.$metric_units);
 		$data['chart_columns'] = json_encode($chart_columns);
 		$data['chart_data'] = json_encode(array(array('name' => $chart_name, 'colorByPoint' => $color_point, 'data' => array_values($chart_data))));

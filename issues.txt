@@ -1,0 +1,3 @@
+no permit type
+not using uniform currencies
+no link to generic_name
