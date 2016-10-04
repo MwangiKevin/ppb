@@ -14,7 +14,7 @@ class Dashboard extends CI_Controller {
 		$titles = array('desc'=>'Top','asc'=>'Bottom');
 		$chart_name = $this->input->post('name');
 		$metric = $this->input->post('metric');
-		/*$usp = $this->input->post('usp');*/
+		$selectedfilters = $this->input->post('selectedfilters');
 		$order = $this->input->post('order');
 		$limit = $this->input->post('limit');
 
@@ -25,8 +25,8 @@ class Dashboard extends CI_Controller {
 		$view_name = $this->config->item($chart_name.'_view_name');
 		$color_point = $this->config->item($chart_name.'_color_point');
 
-		#Get view data                                                                             /*Replace with filter_array*/
-		$view_data = $this->dashboard_model->get_view_data($view_name, $chart_name, $metric_title, array(), $order, $limit);
+		#Get view data                                                                             
+		$view_data = $this->dashboard_model->get_view_data($view_name, $chart_name, $metric_title, $selectedfilters, $order, $limit);
 		$chart_columns = array();
 		$chart_data = array();
 		foreach ($view_data as $row) {
@@ -53,12 +53,40 @@ class Dashboard extends CI_Controller {
 		$this->load->view('chartview', $data);
 	}
 
-	public function get_categories()
+	public function get_filter($section_name, $filter_name)
 	{	
 		$data = array();
-		$categories = $this->dashboard_model->get_categories();
-		foreach ($categories as $item) {
-			$data[] = array('id'=> $item['category'], 'text' =>  ucwords(strtolower($item['category'])));
+		$filters = $this->dashboard_model->get_filters($section_name, $filter_name);
+		foreach ($filters as $item) {
+			$data[] = array('id'=> $item['filter'], 'text' =>  strtoupper($item['filter']));
+		}
+		echo json_encode($data);
+	}
+
+	public function get_custom_filter($section_name, $filter_name){
+		$data = array();
+		$filters = $this->dashboard_model->get_custom_filters($section_name, $filter_name);
+		foreach ($filters as $item) {
+			$data[] = array('id'=> $item['filter'], 'text' =>  strtoupper($item['filter']));
+		}
+		echo json_encode($data);
+	}
+
+	public function get_table_data()
+	{	
+		//Get params
+		$chart_name = $this->input->post('name');
+		$metric = $this->input->post('metric');
+		$selectedfilters = $this->input->post('selectedfilters');
+		//Get config
+		$metric_title = $this->config->item($chart_name.'_'.$metric.'_chart_metric_title');
+		$view_name = $this->config->item($chart_name.'_view_name');
+		//Get data
+		$table_data = $this->dashboard_model->get_table_data($view_name, $chart_name, $metric_title, $selectedfilters);
+		//Format data
+		$data = array();
+		foreach ($table_data as $row) {
+			$data[] = array_values($row);
 		}
 		echo json_encode($data);
 	}

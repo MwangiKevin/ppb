@@ -15,6 +15,8 @@
         }
     });
 
+    var chartName = '<?php echo $chart_name; ?>'
+
     $('#<?php echo $chart_name; ?>_container').highcharts({
         chart: {
             type: '<?php echo $chart_type; ?>'
@@ -54,6 +56,34 @@
                     format: '<b>{point.name}</b>: {point.percentage:.1f} %',
                     style: {
                         color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            },
+            series: {
+                cursor: 'pointer',
+                point: {
+                    events: {
+                        click: function () {
+                            var filterName = this.name
+                            if(filterName == null){
+                                filterName = this.category
+                            }
+                            //Filter Module
+                            var filterData = []
+                            var selectedValues = $('#'+chartName).val()
+                            //if filter not null 
+                            if(selectedValues != null){
+                                filterData = selectedValues
+                            }
+                            //Add new filter to current filter values
+                            filterData.push(filterName) 
+                            //Assign filter values to filter element
+                            $('#'+chartName).val(filterData) 
+                            //Trigger Change on select2 box
+                            $('#'+chartName).trigger('change');
+                            //Click filter button
+                            $("#filter_btn").trigger('click');
+                        }
                     }
                 }
             }

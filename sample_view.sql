@@ -1,13 +1,13 @@
 /*Products*/
 CREATE OR REPLACE VIEW vw_products_dashboard AS
     SELECT 
-        a.pharmacotheraupuetic_group AS atc_code,
+        a.atc_code_name AS atc_code,
         r.routes_name AS route,
         c.country AS country,
         m.mah_company_name	AS manufacturer,
         pi.importer_name AS importer,
         d.dosage_form,
-        MONTH(i.import_date) AS data_month,
+        MONTHNAME(i.import_date) AS data_month,
         YEAR(i.import_date) AS data_year,
         SUM(id.quantity) AS quantity,
         SUM(id.total_fob_price) AS usd_value
