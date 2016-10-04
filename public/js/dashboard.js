@@ -32,7 +32,21 @@ $(function() {
     $("#filter_btn").on("click", ChartFilterHandler);
     /*Tab Change Event*/
     $("#main_tabs a").on("click", TabFilterHandler);
+    /*Clear Filter Click Event*/
+    $("#clear_filter_btn").on("click", ClearFilterHandler)
 });
+
+
+function ClearFilterHandler(){
+    //Clear all filter elements
+    $(".filter").val(null).trigger("change");
+    //Clear DOM filters
+    $('.metric').val(defaultMetric).trigger("change");
+    $('.order').val(defaultOrder).trigger("change");
+    $('.limit').val(defaultLimit).trigger("change");
+    //CLick filter_btn
+    $("#filter_btn").trigger('click');
+}
 
 function TabFilterHandler(e){
     var filtername = $(e.target).attr('href')
@@ -59,7 +73,7 @@ function LoadFilters(tabname, chartFilters){
         filterhtml += '<div class="form-group">'
         filterhtml += '<label for="'+filter+'" class="col-sm-2 control-label">'+filtername+'</label>'
         filterhtml += '<div class="col-sm-10">'
-        filterhtml += ' <select class="form-control '+filter+'" multiple="multiple" id="'+filter+'"></select>'
+        filterhtml += ' <select class="form-control filter '+filter+'" multiple="multiple" id="'+filter+'"></select>'
         filterhtml += '</div>'
         filterhtml += '</div> ';
         //Load data
@@ -83,7 +97,7 @@ function LoadFilters(tabname, chartFilters){
             filterhtml += '<div class="form-group">'
             filterhtml += '<label for="'+filter+'" class="col-sm-2 control-label">'+filtername+'</label>'
             filterhtml += '<div class="col-sm-10">'
-            filterhtml += ' <select class="form-control '+filter+'" multiple="multiple" id="'+filter+'"></select>'
+            filterhtml += ' <select class="form-control filter '+filter+'" multiple="multiple" id="'+filter+'"></select>'
             filterhtml += '</div>'
             filterhtml += '</div> ';
             //Load data

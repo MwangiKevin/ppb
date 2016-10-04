@@ -36,6 +36,10 @@
 			<nav class="collapse navbar-collapse" id="filter-navbar"> 
 				<!--filter_frm-->
 				<div class="nav navbar-nav navbar-form navbar-right">
+					<!--clear_filter_btn-->
+					<button type="button" class="btn btn-danger btn-md" id="clear_filter_btn">
+						<span class="glyphicon glyphicon-refresh"></span> Reset</button>
+					</button>
 				  	<!--filter_modal-->
 					<button type="button" class="btn btn-success btn-md" data-toggle="modal" data-target="#filterModal">
 						<span class="glyphicon glyphicon-filter"></span> Filter</button>
@@ -429,6 +433,8 @@
 	<script type="text/javascript" src="<?php echo base_url().'public/lib/select2/js/select2.full.min.js';?>"></script>
 	<!--dataTables-->
 	<script type="text/javascript" src="<?php echo base_url().'public/lib/dataTables/js/jquery.dataTables.min.js';?>"></script>
+	<!--disable_back_button-->
+	<script type="text/javascript" src="<?php echo base_url().'public/js/disable_back_button.js';?>"></script>
 	<!--dashboard-->
 	<script type="text/javascript" src="<?php echo base_url().'public/js/dashboard.js';?>"></script>
 </body>
